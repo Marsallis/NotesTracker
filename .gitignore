@@ -1,2 +1,5 @@
 env/
 url.txt
+backend/api/migrations/__pycache__/0002_note_subject.cpython-38.pyc
+backend/api/__pycache__/models.cpython-38.pyc
+backend/api/__pycache__/models.cpython-38.pyc
