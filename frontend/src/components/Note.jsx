@@ -6,6 +6,7 @@ function Note({note, onDelete}) {
 
     return (
         <div className="note-container">
+            <p className="note-title">{note.subject}</p>
             <p className="note-title">{note.title}</p>
             <p className="note-content">{note.content}</p>
             <p className="note-date">{formattedDate}</p>
