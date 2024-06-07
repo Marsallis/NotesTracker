@@ -22,7 +22,7 @@ function Home() {
 
     const deleteNote = (id) => {
         api
-            .delete(`/api/notes/delete/{$id}/`)
+            .delete(`/api/notes/delete/${id}/`)
             .then((res) => {
                 if (res.status === 204) alert("Note deleted!");
                 else alert("Failed to delete note.");
