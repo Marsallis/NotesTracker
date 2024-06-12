@@ -3,6 +3,13 @@ div {
     font-family: Arial, sans-serif;
   }
   
+  .note-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px;
+  }
+  
   /* Styles for the notes section */
   .notes-section {
     margin-bottom: 2rem;

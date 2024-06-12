@@ -61,8 +61,8 @@ function Home() {
 
     return (
         <div>
-            <div>
-                <h2>Notes</h2>
+            <h2>Notes</h2>
+            <div className="note-wrapper">
                 {notes.map((note) => (
                     <Note note={note} onDelete={deleteNote} key={note.id} />
                 ))}
@@ -115,9 +115,11 @@ function Home() {
             </form>
             <div>
                 <h2>Filtered Notes</h2>
-                {filteredNotes.map((note) => (
-                    <Note note={note} onDelete={deleteNote} key={note.id} />
-                ))}
+                <div className="note-wrapper">
+                    {filteredNotes.map((note) => (
+                        <Note note={note} onDelete={deleteNote} key={note.id} />
+                    ))}
+                </div>
             </div>
         </div>
     );
