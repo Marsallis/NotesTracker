@@ -4,11 +4,32 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     flex: 1 1 calc(40% - 20px);
-    box-sizing: border-box;
+    position: relative;
   }
+
+.note-container.with-image {
+    background-color: rgb(212, 175, 55, 0.6);
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    flex: 1 1 calc(40% - 20px);
+    position: relative;
+    box-sizing: border-box;
+}
   
   .note-title {
     color: #333;
+    flex: 1;
+  }
+
+  .note-image {
+    width: 100px;
+    position: absolute; /* Positioning */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust for centering */
+    right: 10px; /* Align to the right */
+    border-radius: 5px;
   }
 
   .note-subject {
@@ -53,3 +74,26 @@
   .edit-button:hover {
     background-color: lightskyblue; /* Darker red */
   }
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-field {
+    margin-bottom: 10px;
+}
+
+.edit-field label {
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.edit-field input, .edit-field textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}

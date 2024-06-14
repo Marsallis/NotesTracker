@@ -9,6 +9,7 @@ function Home() {
     const [content, setContent] = useState("");
     const [title, setTitle] = useState("");
     const [subject, setSubject] = useState("");
+    const [image, setImage] = useState("");
     const [filterSubject, setFilterSubject] = useState(""); // Separate state for filter subject
 
     useEffect(() => {
@@ -36,8 +37,9 @@ function Home() {
 
     const createNote = (e) => {
         e.preventDefault();
+        const noteContent = content.trim() === "" ? "none" : content;
         api
-            .post("/api/notes/", {content, title, subject})
+            .post("/api/notes/", {content: noteContent, title, subject, image})
             .then((res) => {
                 if (res.status === 201) alert("Note created!");
                 else alert("Failed to make note.");
@@ -59,10 +61,11 @@ function Home() {
             .catch((err) => alert(err));
     };
 
-    const updateNote = (id, title, content, subject) => {
-        console.log(`Updating note ${id} with title: ${title}, content: ${content}, subject: ${subject}`);  // Debugging statement
+    const updateNote = (id, title, content, subject, image) => {
+        const noteContent = content.trim() === "" ? "none" : content;
+        console.log(`Updating note ${id} with title: ${title}, content: ${noteContent}, subject: ${subject}, image: ${image}`);  // Debugging statement
         api
-            .put(`/api/notes/update/${id}/`, { title, content, subject })
+            .put(`/api/notes/update/${id}/`, { title, content: noteContent, subject, image })
             .then((res) => {
                 if (res.status === 200) {
                     alert("Note updated!");
@@ -80,13 +83,13 @@ function Home() {
 
     return (
         <div>
-            <h2>Notes</h2>
+            <h2 className="page-headers">NOTES</h2>
             <div className="note-wrapper">
                 {notes.map((note) => (
                     <Note note={note} onDelete={deleteNote} onUpdate={updateNote} key={note.id} />
                 ))}
             </div>
-            <h2>Make a Note</h2>
+            <h2 className="page-headers">MAKE A NOTE</h2>
             <form onSubmit={createNote}>
                 <label htmlFor="subject">Subject:</label>
                 <br/>
@@ -107,19 +110,28 @@ function Home() {
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
                 />
-                <label htmlFor="content">Content:</label>
+                <label htmlFor="content">Content: (Optional)</label>
                 <br/>
                 <textarea
                     id="content"
                     name="content"
-                    required
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                 />
                 <br/>
+                <label htmlFor="image">Image URL:</label>
+                <br />
+                <input
+                    type="text"
+                    id="image"
+                    name="image"
+                    onChange={(e) => setImage(e.target.value)}
+                    value={image}
+                />
+                <br />
                 <input type="submit" value="Submit"></input>
             </form>
-            <h2>Find a note</h2>
+            <h2 className="page-headers">FIND A NOTE</h2>
             <form className="filter-form" onSubmit={handleFilterSubmit}>
                 <label htmlFor="filterSubject">Filter by Subject:</label>
                 <br/>
@@ -132,13 +144,10 @@ function Home() {
                 <br/>
                 <button type="submit">Filter</button>
             </form>
-            <div>
-                <h2>Filtered Notes</h2>
-                <div className="note-wrapper">
-                    {filteredNotes.map((note) => (
-                        <Note note={note} onDelete={deleteNote} onUpdate={updateNote} key={note.id} />
-                    ))}
-                </div>
+            <div className="note-wrapper">
+                {filteredNotes.map((note) => (
+                    <Note note={note} onDelete={deleteNote} onUpdate={updateNote} key={note.id} />
+                ))}
             </div>
         </div>
     );
