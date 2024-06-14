@@ -50,3 +50,13 @@ class NoteListBySubject(generics.ListCreateAPIView):
         print("Filtered queryset:", queryset)  # Debugging statement
         return queryset
 
+#update functionality
+class NoteUpdate(generics.UpdateAPIView):
+    queryset = Note.objects.all()
+    serializer_class = NoteSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        print(f"Fetching notes for user: {user}")  # Debugging statement
+        return Note.objects.filter(author=user)

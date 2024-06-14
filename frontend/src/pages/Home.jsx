@@ -59,12 +59,31 @@ function Home() {
             .catch((err) => alert(err));
     };
 
+    const updateNote = (id, title, content, subject) => {
+        console.log(`Updating note ${id} with title: ${title}, content: ${content}, subject: ${subject}`);  // Debugging statement
+        api
+            .put(`/api/notes/update/${id}/`, { title, content, subject })
+            .then((res) => {
+                if (res.status === 200) {
+                    alert("Note updated!");
+                    getNotes();
+                } else {
+                    alert("Failed to update note.");
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+                alert(err);
+            });
+    };
+    
+
     return (
         <div>
             <h2>Notes</h2>
             <div className="note-wrapper">
                 {notes.map((note) => (
-                    <Note note={note} onDelete={deleteNote} key={note.id} />
+                    <Note note={note} onDelete={deleteNote} onUpdate={updateNote} key={note.id} />
                 ))}
             </div>
             <h2>Make a Note</h2>
@@ -117,7 +136,7 @@ function Home() {
                 <h2>Filtered Notes</h2>
                 <div className="note-wrapper">
                     {filteredNotes.map((note) => (
-                        <Note note={note} onDelete={deleteNote} key={note.id} />
+                        <Note note={note} onDelete={deleteNote} onUpdate={updateNote} key={note.id} />
                     ))}
                 </div>
             </div>

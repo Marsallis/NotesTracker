@@ -13,6 +13,7 @@ div {
   /* Styles for the notes section */
   .notes-section {
     margin-bottom: 2rem;
+    max-width: 70%;
   }
   
   .notes-section h2 {
